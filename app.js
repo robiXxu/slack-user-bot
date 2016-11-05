@@ -11,34 +11,36 @@ client.connect(5,function(input){
 });
 
 client.addListener('message', function (from, to, message) {
-    var key = message.trim();
-    if(_.startsWith(key, slack.commandPrefix)){
-      key = _.replace(key, slack.commandPrefix, '');
-      var out = command[key];
-      if(out){
-        if(_.startsWith(to, '#')){
-          client.say(to,out);
-        }else{
-          // TODO: fix DM issue
-        }
-      }else{
-
-        if(_.startsWith(to, '#')){
-          if(services.allow(key, to)){
-            services.load(key,function(data){
-              if(data){
-                client.say(to, data);
-              }else{
-                client.say(to, command.default);
-              }
-            });
+    if(slack.rules[all] && slack.rules[all].indexOf(to) !== -1){
+      var key = message.trim();
+      if(_.startsWith(key, slack.commandPrefix)){
+        key = _.replace(key, slack.commandPrefix, '');
+        var out = command[key];
+        if(out){
+          if(_.startsWith(to, '#')){
+            client.say(to,out);
           }else{
-            client.say(to, command.default);
+            // TODO: fix DM issue
           }
         }else{
-          // TODO: fix DM issue
-        }
 
+          if(_.startsWith(to, '#')){
+            if(services.allow(key, to)){
+              services.load(key,function(data){
+                if(data){
+                  client.say(to, data);
+                }else{
+                  client.say(to, command.default);
+                }
+              });
+            }else{
+              client.say(to, command.default);
+            }
+          }else{
+            // TODO: fix DM issue
+          }
+
+        }
       }
     }
 });
