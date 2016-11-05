@@ -1,7 +1,7 @@
 var reddit = require('fetch-reddit'),
     _ = require('lodash');
 
-function load(cb){
+function load(args,cb){
 
   reddit.fetchPosts('/r/realgirls')
   .then(function(data){

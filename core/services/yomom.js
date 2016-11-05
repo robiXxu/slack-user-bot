@@ -1,6 +1,6 @@
 var rp = require('request-promise');
 
-function load(cb){
+function load(args,cb){
   rp({
     uri: 'http://api.yomomma.info',
     json: true

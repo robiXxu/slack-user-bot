@@ -3,3 +3,5 @@ Commands available:
 > info
 > music
 > yomom
+> girls
+> reddit <subreddit>

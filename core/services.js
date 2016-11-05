@@ -2,9 +2,9 @@ var _ = require('lodash'),
     slack = require('../config/slack');
 
 function load(service,cb){
-  var srv  = require('./services/' + service);
+  var srv  = require('./services/' + getService(service));
   if(srv){
-    srv.load(function(data){
+    srv.load(getArgs(service),function(data){
         cb(data);
     });
   }else{
@@ -14,11 +14,19 @@ function load(service,cb){
 
 function allow(service, channel){
   //only want to limit some services based on a list
-  if(slack.rules[service]){
+  if(slack.rules[getService(service)]){
     return slack.rules[service].indexOf(channel) !== -1;
   }else{
     return true;
   }
+}
+
+function getService(service){
+  return service.split(' ')[0];
+}
+function getArgs(service){
+  var array = service.split(' ');
+  return array.splice(1,array.length);
 }
 
 module.exports = {
