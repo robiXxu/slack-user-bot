@@ -5,3 +5,4 @@ Commands available:
 > yomom
 > girls
 > reddit <subreddit>
+> 9gag <tag>

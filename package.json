@@ -12,6 +12,7 @@
     "fetch-reddit": "^0.1.0",
     "irc": "git+ssh://git@github.com/robiXxu/node-irc.git",
     "lodash": "^4.16.6",
+    "node-9gag": "^0.2.4",
     "request": "^2.78.0",
     "request-promise": "^4.1.1"
   }
