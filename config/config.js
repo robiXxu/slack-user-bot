@@ -6,7 +6,7 @@ module.exports = {
   password: slack.pass,
   port: slack.port || 6667,
   autoRejoin: true,
-  autoConnect: true,
+  autoConnect: false,
   channels: [],
   secure: true,
   sasl: false,
