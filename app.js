@@ -11,7 +11,7 @@ client.connect(5,function(input){
 });
 
 client.addListener('message', function (from, to, message) {
-    if(slack.rules[all] && slack.rules[all].indexOf(to) !== -1){
+    if(slack.rules.all && slack.rules.all.indexOf(to) !== -1){
       var key = message.trim();
       if(_.startsWith(key, slack.commandPrefix)){
         key = _.replace(key, slack.commandPrefix, '');
