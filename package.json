@@ -9,6 +9,9 @@
   "author": "Schiriac Robert",
   "license": "ISC",
   "dependencies": {
-    "irc": "git+ssh://git@github.com/robiXxu/node-irc.git"
+    "irc": "git+ssh://git@github.com/robiXxu/node-irc.git",
+    "lodash": "^4.16.6",
+    "request": "^2.78.0",
+    "request-promise": "^4.1.1"
   }
 }
