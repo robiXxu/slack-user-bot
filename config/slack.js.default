@@ -1,0 +1,6 @@
+// All this details can be obtained from https://teamname.slack.com/account/gateways
+module.exports = {
+  host: '',
+  user: '',
+  pass: ''
+};
