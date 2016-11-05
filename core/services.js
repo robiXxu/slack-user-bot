@@ -2,9 +2,7 @@ var _ = require('lodash'),
     slack = require('../config/slack');
 
 function load(service,cb){
-
-  var path = _.replace(service, ' ', '_');
-  var srv  = require('./services/' + path);
+  var srv  = require('./services/' + service);
   if(srv){
     srv.load(function(data){
         cb(data);

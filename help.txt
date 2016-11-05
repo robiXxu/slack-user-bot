@@ -2,4 +2,4 @@ Commands available:
 > help
 > info
 > music
-> yo momma
+> yomom
