@@ -9,6 +9,7 @@
   "author": "Schiriac Robert",
   "license": "ISC",
   "dependencies": {
+    "fetch-reddit": "^0.1.0",
     "irc": "git+ssh://git@github.com/robiXxu/node-irc.git",
     "lodash": "^4.16.6",
     "request": "^2.78.0",

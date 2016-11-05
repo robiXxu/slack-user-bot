@@ -34,3 +34,12 @@ Currently have a small number of commands. My intention was to make something th
 If you make something cool and want to share pleaase make a pull request.
 
 This could also be used to develop custom integrations for a free team with a limited number who already reached that limit.
+
+
+### Problems
+- doesn't work in DM's
+
+### Todo
+- fix DM
+- add args to services & commands
+- refactoring

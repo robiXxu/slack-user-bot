@@ -16,13 +16,30 @@ client.addListener('message', function (from, to, message) {
       key = _.replace(key, slack.commandPrefix, '');
       var out = command[key];
       if(out){
-        client.say(to,out);
+        if(_.startsWith(to, '#')){
+          client.say(to,out);
+        }else{
+          // TODO: fix DM issue
+        }
       }else{
-        services.load(key,function(data){
-          client.say(to,data);
-        })
-      }
 
+        if(_.startsWith(to, '#')){
+          if(services.allow(key, to)){
+            services.load(key,function(data){
+              if(data){
+                client.say(to, data);
+              }else{
+                client.say(to, command.default);
+              }
+            });
+          }else{
+            client.say(to, command.default);
+          }
+        }else{
+          // TODO: fix DM issue
+        }
+
+      }
     }
 });
 
