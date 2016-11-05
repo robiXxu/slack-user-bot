@@ -5,3 +5,11 @@ module.exports = {
   pass: '',
   commandPrefix: ''
 };
+
+// List of services and the allowed channels.
+// If the service isn't listed here then by default will be available on all Channels.
+module.exports.rules = {
+  girls : [
+    '#somechannel'
+  ]
+};
