@@ -4,7 +4,8 @@
   "description": "A user - bot for slack",
   "main": "app.js",
   "engines": {
-    "node": "5.10.1"
+    "node": "5.10.1",
+    "npm": ">= 3.8.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
