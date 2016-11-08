@@ -31,7 +31,7 @@ node app.js
 ### Commands:
 Currently have a small number of commands. My intention was to make something that i can use to "mess" with my colleagues and have a laugh. But you can go further and implement whatever you want...
 
-If you make something cool and want to share pleaase make a pull request.
+If you make something cool and want to share please make a pull request.
 
 This could also be used to develop custom integrations for a free team with a limited number who already reached that limit.
 
