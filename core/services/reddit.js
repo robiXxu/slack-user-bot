@@ -1,15 +1,18 @@
 var reddit = require('fetch-reddit'),
     _ = require('lodash');
 
-function load(args,cb){
-  if(args.length==1){
-    reddit.fetchPosts('/r/'+args[0])
-    .then(function(data){
-      cb(processResponse(data).join(' \n '));
-    });
-  }else{
-    cb('no subreddit provided');
-  }
+function load(args){
+  return new Promise((resolve,reject) => {
+    if(args.length==1){
+      reddit
+        .fetchPosts('/r/'+args[0])
+        .then(function(data){
+          resolve(processResponse(data).join(' \n '));
+        });
+    }else{
+      reject('no subreddit provided');
+    }
+  });
 }
 
 function processResponse(data){

@@ -6,11 +6,12 @@ var _ = require('lodash'),
     irc = require('irc'),
     client = new irc.Client(slack.host, slack.user, config);
 
-client.connect(5,function(input){
+//5 = retry count
+client.connect(5,(input) => {
   console.log(slack.user + " connected to " + slack.host);
 });
 
-client.addListener('message', function (from, to, message) {
+client.addListener('message', (from, to, message) => {
     if(slack.rules.all && slack.rules.all.indexOf(to) !== -1){
       var key = message.trim();
       if(_.startsWith(key, slack.commandPrefix)){
@@ -26,13 +27,18 @@ client.addListener('message', function (from, to, message) {
 
           if(_.startsWith(to, '#')){
             if(services.allow(key, to)){
-              services.load(key,function(data){
-                if(data){
-                  client.say(to, data);
-                }else{
-                  client.say(to, command.default);
-                }
-              });
+              services
+                .load(key)
+                .then((data) => {
+                  if(data){
+                    client.say(to, data);
+                  }else{
+                    client.say(to, command.default);
+                  }
+                })
+                .catch((err) => {
+                  client.say(to, err);
+                });
             }else{
               client.say(to, command.default);
             }
