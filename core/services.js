@@ -2,14 +2,21 @@ var _ = require('lodash'),
     slack = require('../config/slack');
 
 function load(service,cb){
-  var srv  = require('./services/' + getService(service));
-  if(srv){
-    srv.load(getArgs(service),function(data){
-        cb(data);
-    });
-  }else{
-    cb('*There\'s no service by that name*');
-  }
+  return new Promise((resolve,reject) => {
+    try{
+      var srv  = require('./services/' + getService(service));
+      srv
+        .load(getArgs(service))
+        .then((data) => {
+          resolve(data);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    }catch(ex){
+      reject('There\'s no service by that name');
+    }
+  });
 }
 
 function allow(service, channel){
