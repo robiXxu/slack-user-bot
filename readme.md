@@ -40,6 +40,7 @@ This could also be used to develop custom integrations for a free team with a li
 - doesn't work in DM's
 
 ### Todo
-- fix DM
-- add args to services & commands
-- refactoring
+- fix DM (at the moment i don't think that's possible - i'll keep searching)
+- a better way to handle args
+- refactoring ( split app.js into modules )
+- better way to see the history ( web module ? )
