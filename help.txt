@@ -1,5 +1,4 @@
 Commands available:
-> help
 > info
 > music
 > yomom
