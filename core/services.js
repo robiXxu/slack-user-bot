@@ -37,6 +37,6 @@ function getArgs(service){
 }
 
 module.exports = {
-    load: load,
-    allow:allow
+  load: load,
+  allow:allow
 }
