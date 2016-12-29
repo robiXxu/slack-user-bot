@@ -25,7 +25,6 @@ function load(args){
 
 function processResult(data){
   var output = [];
-  console.log(data);
   _.each(data,(entry) => {
 
     var date = new Date(entry.timestamp);
