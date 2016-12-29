@@ -6,3 +6,4 @@ Commands available:
 > girls
 > reddit <subreddit>
 > 9gag <tag>
+> history <channel> <search term>
