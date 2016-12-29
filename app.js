@@ -1,17 +1,31 @@
-var _ = require('lodash'),
-    config = require('./config/config'),
-    slack = require('./config/slack'),
-    command = require('./config/commands'),
-    services = require('./core/services');
-    irc = require('irc'),
-    client = new irc.Client(slack.host, slack.user, config);
+const _ = require('lodash'),
+      config = require('./config/config'),
+      slack = require('./config/slack'),
+      command = require('./config/commands'),
+      services = require('./core/services');
+      irc = require('irc'),
+      client = new irc.Client(slack.host, slack.user, config.irc),
+      easyMongo = require('easymongo'),
+      mongo = new easyMongo({dbname: config.storage.db});
 
 //5 = retry count
 client.connect(5,(input) => {
   console.log(slack.user + " connected to " + slack.host);
 });
 
+
+//TODO: split everything into separate modules
 client.addListener('message', (from, to, message) => {
+
+  if(_.startsWith(to, '#') && !_.startsWith(message, slack.commandPrefix) && config.storage.enabled){
+    mongo.collection('messages').save({
+      from: from,
+      channel: to,
+      message: message,
+      timestamp: Date.now()
+    });
+  }
+
   if(slack.rules.all && slack.rules.all.indexOf(to) !== -1){
     var key = message.trim();
     if(_.startsWith(key, slack.commandPrefix)){

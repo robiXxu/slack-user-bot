@@ -1,5 +1,5 @@
-var gag = require('node-9gag'),
-    _ = require('lodash');
+const gag = require('node-9gag'),
+      _ = require('lodash');
 
 function load(args){
   return new Promise((resolve, reject) => {

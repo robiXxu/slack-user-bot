@@ -1,4 +1,4 @@
-var rp = require('request-promise');
+const rp = require('request-promise');
 
 function load(args){
   return new Promise((resolve, reject) => {

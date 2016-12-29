@@ -1,6 +1,6 @@
 var slack = require('./slack');
 
-module.exports = {
+module.exports.irc = {
   nick: slack.user,
   userName: slack.user,
   password: slack.pass,
@@ -14,3 +14,8 @@ module.exports = {
   channelPrefixes: "&#",
   encoding: 'UTF-8'
 };
+
+module.exports.storage = {
+  enabled: true,
+  db: 'slack-user-bot'
+}

@@ -1,7 +1,7 @@
-var _ = require('lodash'),
+const _ = require('lodash'),
     slack = require('../config/slack');
 
-function load(service,cb){
+function load(service){
   return new Promise((resolve,reject) => {
     try{
       var srv  = require('./services/' + getService(service));
@@ -14,6 +14,7 @@ function load(service,cb){
           reject(err);
         });
     }catch(ex){
+      console.log(ex);
       reject('There\'s no service by that name');
     }
   });

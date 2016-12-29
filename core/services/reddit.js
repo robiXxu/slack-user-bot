@@ -1,5 +1,5 @@
-var reddit = require('fetch-reddit'),
-    _ = require('lodash');
+const reddit = require('fetch-reddit'),
+      _ = require('lodash');
 
 function load(args){
   return new Promise((resolve,reject) => {
