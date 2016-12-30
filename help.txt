@@ -6,3 +6,4 @@ Commands available:
 > reddit <subreddit>
 > 9gag <tag>
 > history <channel> <search term>
+> spotify <search term> <type> - for terms with spaces use like this |Drop the world| , types: track(default), artist, album, playlist
