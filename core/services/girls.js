@@ -94,7 +94,7 @@ function fetchAll(){
                 .catch((err) => { callback(err,null); });
             });
           });
-          async.series(proms,(err, results) => {
+          async.parallel(proms,(err, results) => {
             if(results){
               var posts = _.flattenDeep(results);
               formatOutput(posts)
