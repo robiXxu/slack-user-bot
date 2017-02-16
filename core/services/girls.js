@@ -135,11 +135,6 @@ function formatOutput(data){
     urls = _.filter(urls, function(url){
       return url.indexOf('imgur') !== -1;
     });
-    console.log(urls.length);
-    var pen = "";
-    _.each(urls, (url)=>{
-      pen+= "< " + url + " >";
-    });
-    resolve(pen);
+    resolve(urls.join(' \n '));
   });
 }
