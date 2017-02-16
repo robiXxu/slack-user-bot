@@ -10,7 +10,7 @@ function load(args){
         if(response){
           resolve(processResponse(response, args[1]).join('\n'));
         }else if(error){
-          return reject(error);
+          reject(error);
         }
       });
     }
