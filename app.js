@@ -4,9 +4,8 @@ const _ = require('lodash'),
       command = require('./config/commands'),
       services = require('./core/services');
       irc = require('irc'),
-      client = new irc.Client(slack.host, slack.user, config.irc),
-      easyMongo = require('easymongo'),
-      mongo = new easyMongo({dbname: config.storage.db});
+      client = new irc.Client(slack.host, slack.user, config.irc)
+      db = require('./core/db');
 
 //5 = retry count
 client.connect(5,(input) => {
@@ -18,7 +17,7 @@ client.connect(5,(input) => {
 client.addListener('message', (from, to, message) => {
 
   if(_.startsWith(to, '#') && !_.startsWith(message, slack.commandPrefix) && config.storage.enabled){
-    mongo.collection('messages').save({
+    db.messages.save({
       from: from,
       channel: to,
       message: message,
