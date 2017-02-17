@@ -23,7 +23,7 @@ function load(service){
 function allow(service, channel){
   //only want to limit some services based on a list
   if(slack.rules[getService(service)]){
-    return slack.rules[service].indexOf(channel) !== -1;
+    return slack.rules[getService(service)].indexOf(channel) !== -1;
   }else{
     return true;
   }
