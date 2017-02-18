@@ -13,6 +13,7 @@
   "author": "Schiriac Robert",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.1.4",
     "easymongo": "^5.0.0",
     "fetch-reddit": "^0.1.0",
     "irc": "git+ssh://git@github.com/robiXxu/node-irc.git",

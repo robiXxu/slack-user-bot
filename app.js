@@ -4,9 +4,8 @@ const _ = require('lodash'),
       command = require('./config/commands'),
       services = require('./core/services');
       irc = require('irc'),
-      client = new irc.Client(slack.host, slack.user, config.irc),
-      easyMongo = require('easymongo'),
-      mongo = new easyMongo({dbname: config.storage.db});
+      client = new irc.Client(slack.host, slack.user, config.irc)
+      db = require('./core/db');
 
 //5 = retry count
 client.connect(5,(input) => {
@@ -18,7 +17,7 @@ client.connect(5,(input) => {
 client.addListener('message', (from, to, message) => {
 
   if(_.startsWith(to, '#') && !_.startsWith(message, slack.commandPrefix) && config.storage.enabled){
-    mongo.collection('messages').save({
+    db.messages.save({
       from: from,
       channel: to,
       message: message,
@@ -45,7 +44,22 @@ client.addListener('message', (from, to, message) => {
               .load(key)
               .then((data) => {
                 if(data){
-                  client.say(to, data);
+                  if(_.isArray(data)){
+                    var chunks = _.chunk(data,5);
+                    var delay = 0;
+                    var count = 0;
+                    _.each(chunks, (chunk) => {
+                      //slack doesn't handle a lot of images at once :( ... that's the reason behind this "hack"
+                      setTimeout(() => {
+                        console.log("Sending chunk " , count);
+                        client.say(to,chunk.join('\n'));
+                        count++;
+                      }, delay * 1000);
+                      delay += 3;
+                    });
+                  }else{
+                    client.say(to, data);
+                  }
                 }else{
                   client.say(to, command.default);
                 }
