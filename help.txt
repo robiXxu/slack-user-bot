@@ -7,3 +7,4 @@ Commands available:
 > 9gag <tag>
 > history <channel> <search term>
 > spotify <search term> <type> - for terms with spaces use like this |Drop the world| , types: track(default), artist, album, playlist
+> gif <term> [<count>] - example: "gif money 3" , "gif |that would be great| 10" , "gif |chicks wanna holla|"
