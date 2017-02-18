@@ -10,10 +10,10 @@ module.exports = {
 
 function load(args){
   return new Promise((resolve, reject) => {
-    if(args.length == 2 && config.storage.enabled){
+    if(args.length > 0 && config.storage.enabled){
       handleArgs(args)
-        .then((data) => { resolve(data); })
-        .catch((data) => { reject(data); });
+        .then(data => resolve(data))
+        .catch(data=> reject(data));
     }else{
       fetchAll()
         .then(data => resolve(data))
@@ -25,20 +25,49 @@ function load(args){
 
 function handleArgs(args){
   return new Promise((resolve, reject) => {
-    if(_.indexOf(['add', 'remove'], args[0]) !== -1){
+    if(_.indexOf(['add', 'remove', 'list'], args[0]) !== -1){
       switch (args[0]) {
         case 'add':
           add(args)
-            .then((data) => { resolve(data); })
-            .catch((data) => { reject(data); });
+            .then(data=> resolve(data))
+            .catch(err => reject(err));
           break;
         case 'remove':
           remove(args)
-            .then((data) => { resolve(data); })
-            .catch((data) => { reject(data); });
+            .then(data => resolve(data))
+            .catch(err => reject(err));
+          break;
+        case 'list':
+          list()
+            .then(data => resolve(data))
+            .catch(err => reject(err));
           break;
       }
+    }else{
+      reject('command is invalid');
     }
+  });
+}
+
+function find(args){
+  return new Promise((resolve, reject) => {
+    db.girls
+      .count({ subreddit:args[1] })
+      .then(count => resolve( { count:count }))
+      .catch(err => reject(err));
+  });
+}
+
+function list(args){
+  return new Promise((resolve, reject) => {
+    db.girls
+      .find()
+      .then((data) => {
+        data.length > 0 ?
+          resolve(_.map(data,'subreddit').join(' *|* '))
+        : reject('no subreddits in db :(');
+      })
+      .catch(err => reject(err));
   });
 }
 
@@ -53,15 +82,7 @@ function add(args){
             .catch( err => reject(err) )
         : reject(args[1] + ' subreddit already in db')
       })
-      .catch( err => reject(err) );
-  });
-}
-function find(args){
-  return new Promise((resolve, reject) => {
-    db.girls
-      .count({ subreddit:args[1] })
-      .then( count => resolve( { count:count }) )
-      .catch( err => reject(err) );
+      .catch(err => reject(err));
   });
 }
 
@@ -73,7 +94,7 @@ function remove(args){
             db.girls
               .remove({ subreddit:args[1] })
               .then(() => { resolve(args[1] + ' subreddit was deleted') })
-              .catch( err => reject(err) )
+              .catch(err => reject(err))
           : reject(args[1] + ' subreddit not found in db')
       })
       .catch( err => reject(err) );
@@ -98,21 +119,20 @@ function fetchAll(){
             if(results){
               var posts = _.flattenDeep(results);
               formatOutput(posts)
-                .then( urls => resolve(urls) );
+                .then(urls => resolve(urls));
             }else{
               reject(err);
             }
           });
         }else{
           fetchPostsFrom('realgirls')
-            .then( (data) => {
-              //format 
-              resolve(data);
+            .then((data) => {
+              resolve(formatOutput(data));
             })
-            .catch( err => reject(data) )
+            .catch(err => reject(data))
         }
       })
-      .catch( err => reject(err) );
+      .catch(err => reject(err));
   });
 }
 
@@ -123,7 +143,7 @@ function fetchPostsFrom(subreddit){
       .then(function(data){
         resolve(data.posts);
       })
-      .catch( err => reject(err) );
+      .catch(err => reject(err));
   });
 }
 
@@ -135,6 +155,6 @@ function formatOutput(data){
     urls = _.filter(urls, function(url){
       return url.indexOf('imgur') !== -1;
     });
-    resolve(urls.join(' \n '));
+    resolve(urls);
   });
 }
