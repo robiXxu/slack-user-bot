@@ -1,5 +1,4 @@
-# slack-user-bot
-Transform your account in a bot.
+# [deprecated] slack-user-bot -- Slack removed IRC connection.
 
 ### Up and running
 Clone and run
